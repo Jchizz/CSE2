@@ -72,6 +72,9 @@ public class Banking {
         case 3:
             System.out.println("Your balance is "+balance);
             break;
+        default:
+            System.out.println("Please select an available option.");
+            break;
         }
     }
 }
