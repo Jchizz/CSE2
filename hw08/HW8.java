@@ -114,7 +114,10 @@ public class HW8 {
                 // Exit the program
                 System.exit(1);
             }
-            System.out.println("Enter 'A' or 'a' to Attack, 'E' or 'E' to Escape, ANYTHING else is to YIELD");
+            // Remind the user what to do
+            while (hits < trials) {
+                System.out.println("Enter 'A' or 'a' to Attack, 'E' or 'E' to Escape, ANYTHING else is to YIELD");
+            }
         }
         return string;
     }
