@@ -115,7 +115,7 @@ public class HW8 {
                 System.exit(1);
             }
             // Remind the user what to do
-            while (hits < trials) {
+            if (hits < trial) {
                 System.out.println("Enter 'A' or 'a' to Attack, 'E' or 'E' to Escape, ANYTHING else is to YIELD");
             }
         }
