@@ -88,15 +88,17 @@ public class FourDwin{
         
         
         // Fill the array with random doubles between 0 and 30, then print the array
-        double val;
+        double val, valBig;
         int valInt;
         for (int i = 0; i < myArray.length; i++) {
             for (int j = 0; j < myArray[i].length; j++) {
                 for (int k = 0; k < myArray[i][j].length; k++) {
                     for (int l = 0; l < myArray[i][j][k].length; l++) {
-                        val = randomGenerator.nextInt(31);
-                        valInt = (int) val*10;
-                        myArray[i][j][k][l] = (double) valInt/10;
+                        val = randomGenerator.nextDouble();
+                        val *= 31;
+                        valBig = val*10;
+                        valInt = (int) valBig;
+                        myArray[i][j][k][l] = ((double) valInt)/10;
                     }
                 }
             }
@@ -173,43 +175,49 @@ public class FourDwin{
     }
     
     // Create a method to find the minimum in an array
-    public static int minimum(double array[][][]) {
+    public static double minimum(double array[][][]) {
         // Find the minimum and maximum of array1
         // Declare and initialize the minimum and maximum variables
-        int min = array[0].length;
+        double min = array[0][0][0];
         // Run through a for loop to check all 100 integers in the array
         for (int i = 0; i < array.length; i++) {
-            // Check to see if the value is less than the current min
-            if (array[i].length < min) {
-                // Set the new minimum
-                min = array[i].length;
+            for (int j = 0; j < array[i].length; j++) {
+                for (int k = 0; k < array[i][j].length; k++) {
+                    // Check to see if the value is less than the current min
+                    if (array[i][j][k] < min) {
+                        // Set the new minimum
+                        min = array[i][j][k];
+                    }
+                }
             }
         }
         return min;
     }
     
-    // Create the method that will sort a 3D array from its smallest to largest 2D arrays
+    // Create the method that will sort a 3D array from its smallest to largest 1D arrays
     public static double[][][] sort3DArray(double array[][][]) {
         // Declare the minimum and temp variables
-        int min, index = 0;
-        double[][] temp;
-        // Loop through each 2D array within the 3D array
+        int index = 0;
+        double temp;
+        double min;
+        // Loop though each 2D array
         for (int i = 0; i < array.length; i++) {
-            // Find the smallest array
-            for (int j = 0; j < array.length; j++) {
-                min = array[i].length;
-                // If the array being checked is smaller, prepare to swap the arrays
-                if (array[j].length < min) {
-                    // Set the new minimum
-                    min = array[j].length;
-                    // Keep track of where the minimum was found
-                    index = j;
+            // Loop through each 1D array
+            for (int j = 0; j < array[i].length; j++) {
+                for (int k = 0; k < array[i][j].length; k++) {
+                    min = array[i][j][k];
+                    for (int l = k; l < array[i][j].length; l++) {
+                        if (array[i][j][l] < min) {
+                            min = array[i][j][l];
+                            index = l;
+                        }
+                    }
+                    temp = array[i][j][k];
+                    array[i][j][k] = array[i][j][index];
+                    array[i][j][index] = temp;
+                    index = 0;
                 }
             }
-            // Swap the arrays
-            temp = array[i];
-            array[i] = array[index];
-            array[index] = temp;
         }
         return array;
     }
